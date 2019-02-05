@@ -5,4 +5,4 @@ better_exceptions.hook()
 
 
 a = b = 0
-a + b"prefix" + 'single' + """triple""" + 1 + b
+a + b"prefix" + "multi\nlines" + 'single' + """triple""" + 1 + b

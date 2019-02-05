@@ -305,8 +305,8 @@ python test/test_source_strings.py
 
 Traceback (most recent call last):
   File "test/test_source_strings.py", line 8, in <module>
-    a + [31mb"prefix"[m + [31m'single'[m + [31m"""triple"""[m + [31m1[m + b
-    [36m│                                             └ 0[m
+    a + [31mb"prefix"[m + [31m"multi\nlines"[m + [31m'single'[m + [31m"""triple"""[m + [31m1[m + b
+    [36m│                                                              └ 0[m
     [36m└ 0[m
 TypeError: unsupported operand type(s) for +: 'int' and 'bytes'
 

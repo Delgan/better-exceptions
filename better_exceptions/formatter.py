@@ -9,20 +9,10 @@ import sys
 import tokenize
 import traceback
 
-from .color import STREAM, SUPPORTS_COLOR
-from .encoding import ENCODING, to_byte, to_unicode
+from .color import SUPPORTS_COLOR
 from .highlighter import STYLE, Highlighter
 from .repl import get_repl
 
-
-PIPE_CHAR = '\u2502'
-CAP_CHAR = '\u2514'
-
-try:
-    PIPE_CHAR.encode(ENCODING)
-except UnicodeEncodeError:
-    PIPE_CHAR = '|'
-    CAP_CHAR = '->'
 
 THEME = {
     'inspect': '\x1b[36m{}\x1b[m',
@@ -36,13 +26,22 @@ class ExceptionFormatter(object):
     CMDLINE_REGXP = re.compile(r'(?:[^\t ]*([\'"])(?:\\.|.)*(?:\1))[^\t ]*|([^\t ]+)')
 
     def __init__(self, colored=SUPPORTS_COLOR, style=STYLE, theme=THEME, max_length=MAX_LENGTH,
-                       pipe_char=PIPE_CHAR, cap_char=CAP_CHAR):
+                       encoding='ascii'):
         self._colored = colored
         self._theme = theme
         self._max_length = max_length
-        self._pipe_char = pipe_char
-        self._cap_char = cap_char
+        self._encoding = encoding
         self._highlighter = Highlighter(style)
+        self._pipe_char = self._get_char('\u2502', '|')
+        self._cap_char = self._get_char('\u2514', '->')
+
+    def _get_char(self, char, default):
+        try:
+            char.encode(self._encoding)
+        except UnicodeEncodeError:
+            return default
+        else:
+            return char
 
     def format_value(self, v):
         try:
@@ -201,7 +200,7 @@ class ExceptionFormatter(object):
 
                 lines.append(self._theme['inspect'].format(line) if self._colored else line)
 
-        formatted = '\n    '.join([to_unicode(x) for x in lines])
+        formatted = '\n    '.join(lines)
 
         return (filename, lineno, function, formatted), color_source
 
