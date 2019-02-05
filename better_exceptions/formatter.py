@@ -149,10 +149,9 @@ class ExceptionFormatter(object):
         return source
 
     def get_traceback_information(self, tb):
-        frame_info = inspect.getframeinfo(tb)
-        filename = frame_info.filename
-        lineno = frame_info.lineno
-        function = frame_info.function
+        lineno = tb.tb_lineno
+        filename = tb.tb_frame.f_code.co_filename
+        function = tb.tb_frame.f_code.co_name
 
         repl = get_repl()
         if repl is not None and filename in repl.entries:
@@ -210,7 +209,7 @@ class ExceptionFormatter(object):
         if not tb:
             try:
                 raise Exception()
-            except:
+            except Exception:
                 omit_last = True
                 _, _, tb = sys.exc_info()
                 assert tb is not None
