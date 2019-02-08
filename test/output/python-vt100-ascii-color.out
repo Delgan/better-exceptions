@@ -1,21 +1,22 @@
 python test/test.py
 
 
-Traceback (most recent call last):
-  File "test/test.py", line 17, in <module>
+[33m[1mTraceback (most recent call last):[m
+  File "[32mtest/[m[32m[1mtest.py[m", line [33m17[m, in [35m<module>[m
     shallow(bar, [31m15[m)
-    [36m|       -> 2[m
-    [36m-> <function shallow at 0xDEADBEEF>[m
-  File "test/test.py", line 8, in shallow
+    [36m|       -> [m[36m[1m2[m
+    [36m-> [m[36m[1m<function shallow at 0xDEADBEEF>[m
+  File "[32mtest/[m[32m[1mtest.py[m", line [33m8[m, in [35mshallow[m
     deep(a + b)
-    [36m|    |   -> 15[m
-    [36m|    -> 2[m
-    [36m-> <function deep at 0xDEADBEEF>[m
-  File "test/test.py", line 13, in deep
+    [36m|    |   -> [m[36m[1m15[m
+    [36m|    -> [m[36m[1m2[m
+    [36m-> [m[36m[1m<function deep at 0xDEADBEEF>[m
+  File "[32mtest/[m[32m[1mtest.py[m", line [33m13[m, in [35mdeep[m
     [33;1massert[m val > [31m10[m [33;1mand[m foo == [31m60[m
-    [36m       |            -> 52[m
-    [36m       -> 17[m
-AssertionError: [33;1massert[m val > [31m10[m [33;1mand[m foo == [31m60[m
+    [36m       |            -> [m[36m[1m52[m
+    [36m       -> [m[36m[1m17[m
+[31m[1mAssertionError[m:[1m [33;1massert[m val > [31m10[m [33;1mand[m foo == [31m60[m
+[m
 
 
 
@@ -29,17 +30,18 @@ True
 python test/test_encoding.py
 
 
-Traceback (most recent call last):
-  File "test/test_encoding.py", line 14, in <module>
+[33m[1mTraceback (most recent call last):[m
+  File "[32mtest/[m[32m[1mtest_encoding.py[m", line [33m14[m, in [35m<module>[m
     div()
-    [36m-> <function div at 0xDEADBEEF>[m
-  File "test/test_encoding.py", line 11, in div
+    [36m-> [m[36m[1m<function div at 0xDEADBEEF>[m
+  File "[32mtest/[m[32m[1mtest_encoding.py[m", line [33m11[m, in [35mdiv[m
     [33;1mreturn[m _deep([31m"\u5929"[m)
-    [36m       -> <function _deep at 0xDEADBEEF>[m
-  File "test/test_encoding.py", line 8, in _deep
+    [36m       -> [m[36m[1m<function _deep at 0xDEADBEEF>[m
+  File "[32mtest/[m[32m[1mtest_encoding.py[m", line [33m8[m, in [35m_deep[m
     [33;1mreturn[m [31m1[m / val
-    [36m           -> '\u5929'[m
-TypeError: unsupported operand type(s) for /: 'int' and 'str'
+    [36m           -> [m[36m[1m'\u5929'[m
+[31m[1mTypeError[m:[1m unsupported operand type(s) for /: 'int' and 'str'
+[m
 
 
 
@@ -52,15 +54,20 @@ spawn python -m better_exceptions -q
 ...     assert a > 10
 ... 
 >>> foo(1)
-Traceback (most recent call last):
-  File "<console>", line 1, in <module>
+[33m[1mTraceback (most recent call last):[m
+  File "[32m/usr/lib/python3.5/[m[32m[1mcode.py[m", line [33m91[m, in [35mruncode[m
+    [35;1mexec[m(code, self.[35;1mlocals[m)
+    [36m     |     |    -> [m[36m[1m{'foo': <function foo at 0xDEADBEEF>, '__doc__': None, '__name__': '__console__', '__builtins__': {'iter': <built-in functio...[m
+    [36m     |     -> [m[36m[1m<better_exceptions.repl.BetterExceptionsConsole object at 0xDEADBEEF>[m
+    [36m     -> [m[36m[1m<code object <module> at 0xDEADBEEF, file "@@@REPL@@@4", line 1>[m
+  File "[32m[m[32m[1m<console>[m", line [33m1[m, in [35m<module>[m
     foo([31m1[m)
-    [36m-> <function foo at 0xDEADBEEF>[m
-  File "<console>", line 2, in foo
+    [36m-> [m[36m[1m<function foo at 0xDEADBEEF>[m
+  File "[32m[m[32m[1m<console>[m", line [33m2[m, in [35mfoo[m
     [33;1massert[m a > [31m10[m
-    [36m       -> 1[m
-AssertionError: [33;1massert[m a > [31m10[m
->>> exit()
+    [36m       -> [m[36m[1m1[m
+[31m[1mAssertionError[m:[1m [33;1massert[m a > [31m10[m
+[m>>> exit()
 
 
 
@@ -70,77 +77,77 @@ AssertionError: [33;1massert[m a > [31m10[m
 
 import better_exceptions; better_exceptions.hook(); a = 5; assert a > 10 # this should work fine
 
-Traceback (most recent call last):
-  File "<string>", line 1, in <module>
+[33m[1mTraceback (most recent call last):[m
+  File "[32m[m[32m[1m<string>[m", line [33m1[m, in [35m<module>[m
     [33;1mimport[m better_exceptions; better_exceptions.hook(); a = [31m5[m; [33;1massert[m a > [31m10[m [2;37m# this should work fine[m
-    [36m       |                  |                 |       |             -> 5[m
-    [36m       |                  |                 |       -> 5[m
-    [36m       |                  |                 -> <function hook at 0xDEADBEEF>[m
-    [36m       |                  -> <module 'test_module' from '/removed/for/test/purposes.py'>[m
-    [36m       -> <module 'test_module' from '/removed/for/test/purposes.py'>[m
-AssertionError: [33;1mimport[m better_exceptions; better_exceptions.hook(); a = [31m5[m; [33;1massert[m a > [31m10[m [2;37m# this should work fine[m
-
-Traceback (most recent call last):
-  File "<string>", line 1, in <module>
+    [36m       |                  |                 |       |             -> [m[36m[1m5[m
+    [36m       |                  |                 |       -> [m[36m[1m5[m
+    [36m       |                  |                 -> [m[36m[1m<function hook at 0xDEADBEEF>[m
+    [36m       |                  -> [m[36m[1m<module 'test_module' from '/removed/for/test/purposes.py'>[m
+    [36m       -> [m[36m[1m<module 'test_module' from '/removed/for/test/purposes.py'>[m
+[31m[1mAssertionError[m:[1m [33;1mimport[m better_exceptions; better_exceptions.hook(); a = [31m5[m; [33;1massert[m a > [31m10[m [2;37m# this should work fine[m
+[m
+[33m[1mTraceback (most recent call last):[m
+  File "[32m[m[32m[1m<string>[m", line [33m1[m, in [35m<module>[m
     [33;1mimport[m better_exceptions; better_exceptions.hook(); a = [31m5[m; [33;1massert[m a > [31m10[m [2;37m# this should work fine[m
-    [36m       |                  |                 |       |             -> 5[m
-    [36m       |                  |                 |       -> 5[m
-    [36m       |                  |                 -> <function hook at 0xDEADBEEF>[m
-    [36m       |                  -> <module 'test_module' from '/removed/for/test/purposes.py'>[m
-    [36m       -> <module 'test_module' from '/removed/for/test/purposes.py'>[m
-AssertionError: [33;1mimport[m better_exceptions; better_exceptions.hook(); a = [31m5[m; [33;1massert[m a > [31m10[m [2;37m# this should work fine[m
-
+    [36m       |                  |                 |       |             -> [m[36m[1m5[m
+    [36m       |                  |                 |       -> [m[36m[1m5[m
+    [36m       |                  |                 -> [m[36m[1m<function hook at 0xDEADBEEF>[m
+    [36m       |                  -> [m[36m[1m<module 'test_module' from '/removed/for/test/purposes.py'>[m
+    [36m       -> [m[36m[1m<module 'test_module' from '/removed/for/test/purposes.py'>[m
+[31m[1mAssertionError[m:[1m [33;1mimport[m better_exceptions; better_exceptions.hook(); a = [31m5[m; [33;1massert[m a > [31m10[m [2;37m# this should work fine[m
+[m
 from __future__ import print_function; import better_exceptions; better_exceptions.hook(); a = "why hello there"; print(a); assert False
 
-Traceback (most recent call last):
-  File "<string>", line 1, in <module>
+[33m[1mTraceback (most recent call last):[m
+  File "[32m[m[32m[1m<string>[m", line [33m1[m, in [35m<module>[m
     [33;1mfrom[m __future__ [33;1mimport[m print_function; [33;1mimport[m better_exceptions; better_exceptions.hook(); a = [31m"why hello there"[m; [35;1mprint[m(a); [33;1massert[m False
-    [36m                       |                      |                  |                 |       |                            -> 'why hello there'[m
-    [36m                       |                      |                  |                 |       -> 'why hello there'[m
-    [36m                       |                      |                  |                 -> <function hook at 0xDEADBEEF>[m
-    [36m                       |                      |                  -> <module 'test_module' from '/removed/for/test/purposes.py'>[m
-    [36m                       |                      -> <module 'test_module' from '/removed/for/test/purposes.py'>[m
-    [36m                       -> _Feature((2, 6, 0, 'alpha', 2), (3, 0, 0, 'alpha', 0), 65536)[m
-AssertionError: [33;1mfrom[m __future__ [33;1mimport[m print_function; [33;1mimport[m better_exceptions; better_exceptions.hook(); a = [31m"why hello there"[m; [35;1mprint[m(a); [33;1massert[m False
-why hello there
+    [36m                       |                      |                  |                 |       |                            -> [m[36m[1m'why hello there'[m
+    [36m                       |                      |                  |                 |       -> [m[36m[1m'why hello there'[m
+    [36m                       |                      |                  |                 -> [m[36m[1m<function hook at 0xDEADBEEF>[m
+    [36m                       |                      |                  -> [m[36m[1m<module 'test_module' from '/removed/for/test/purposes.py'>[m
+    [36m                       |                      -> [m[36m[1m<module 'test_module' from '/removed/for/test/purposes.py'>[m
+    [36m                       -> [m[36m[1m_Feature((2, 6, 0, 'alpha', 2), (3, 0, 0, 'alpha', 0), 65536)[m
+[31m[1mAssertionError[m:[1m [33;1mfrom[m __future__ [33;1mimport[m print_function; [33;1mimport[m better_exceptions; better_exceptions.hook(); a = [31m"why hello there"[m; [35;1mprint[m(a); [33;1massert[m False
+[mwhy hello there
 
-Traceback (most recent call last):
-  File "<string>", line 1, in <module>
+[33m[1mTraceback (most recent call last):[m
+  File "[32m[m[32m[1m<string>[m", line [33m1[m, in [35m<module>[m
     [33;1mfrom[m __future__ [33;1mimport[m print_function; [33;1mimport[m better_exceptions; better_exceptions.hook(); a = [31m"why hello there"[m; [35;1mprint[m(a); [33;1massert[m False
-    [36m                       |                      |                  |                 |       |                            -> 'why hello there'[m
-    [36m                       |                      |                  |                 |       -> 'why hello there'[m
-    [36m                       |                      |                  |                 -> <function hook at 0xDEADBEEF>[m
-    [36m                       |                      |                  -> <module 'test_module' from '/removed/for/test/purposes.py'>[m
-    [36m                       |                      -> <module 'test_module' from '/removed/for/test/purposes.py'>[m
-    [36m                       -> _Feature((2, 6, 0, 'alpha', 2), (3, 0, 0, 'alpha', 0), 65536)[m
-AssertionError: [33;1mfrom[m __future__ [33;1mimport[m print_function; [33;1mimport[m better_exceptions; better_exceptions.hook(); a = [31m"why hello there"[m; [35;1mprint[m(a); [33;1massert[m False
-why hello there
+    [36m                       |                      |                  |                 |       |                            -> [m[36m[1m'why hello there'[m
+    [36m                       |                      |                  |                 |       -> [m[36m[1m'why hello there'[m
+    [36m                       |                      |                  |                 -> [m[36m[1m<function hook at 0xDEADBEEF>[m
+    [36m                       |                      |                  -> [m[36m[1m<module 'test_module' from '/removed/for/test/purposes.py'>[m
+    [36m                       |                      -> [m[36m[1m<module 'test_module' from '/removed/for/test/purposes.py'>[m
+    [36m                       -> [m[36m[1m_Feature((2, 6, 0, 'alpha', 2), (3, 0, 0, 'alpha', 0), 65536)[m
+[31m[1mAssertionError[m:[1m [33;1mfrom[m __future__ [33;1mimport[m print_function; [33;1mimport[m better_exceptions; better_exceptions.hook(); a = [31m"why hello there"[m; [35;1mprint[m(a); [33;1massert[m False
+[mwhy hello there
 
 from __future__ import print_function; import better_exceptions; better_exceptions.hook(); a = "why     hello          " + "   there"; print(a); assert False
 
-Traceback (most recent call last):
-  File "<string>", line 1, in <module>
+[33m[1mTraceback (most recent call last):[m
+  File "[32m[m[32m[1m<string>[m", line [33m1[m, in [35m<module>[m
     [33;1mfrom[m __future__ [33;1mimport[m print_function; [33;1mimport[m better_exceptions; better_exceptions.hook(); a = [31m"why     hello          "[m + [31m"   there"[m; [35;1mprint[m(a); [33;1massert[m False
-    [36m                       |                      |                  |                 |       |                                                 -> 'why     hello             there'[m
-    [36m                       |                      |                  |                 |       -> 'why     hello             there'[m
-    [36m                       |                      |                  |                 -> <function hook at 0xDEADBEEF>[m
-    [36m                       |                      |                  -> <module 'test_module' from '/removed/for/test/purposes.py'>[m
-    [36m                       |                      -> <module 'test_module' from '/removed/for/test/purposes.py'>[m
-    [36m                       -> _Feature((2, 6, 0, 'alpha', 2), (3, 0, 0, 'alpha', 0), 65536)[m
-AssertionError: [33;1mfrom[m __future__ [33;1mimport[m print_function; [33;1mimport[m better_exceptions; better_exceptions.hook(); a = [31m"why     hello          "[m + [31m"   there"[m; [35;1mprint[m(a); [33;1massert[m False
-why     hello             there
+    [36m                       |                      |                  |                 |       |                                                 -> [m[36m[1m'why     hello             there'[m
+    [36m                       |                      |                  |                 |       -> [m[36m[1m'why     hello             there'[m
+    [36m                       |                      |                  |                 -> [m[36m[1m<function hook at 0xDEADBEEF>[m
+    [36m                       |                      |                  -> [m[36m[1m<module 'test_module' from '/removed/for/test/purposes.py'>[m
+    [36m                       |                      -> [m[36m[1m<module 'test_module' from '/removed/for/test/purposes.py'>[m
+    [36m                       -> [m[36m[1m_Feature((2, 6, 0, 'alpha', 2), (3, 0, 0, 'alpha', 0), 65536)[m
+[31m[1mAssertionError[m:[1m [33;1mfrom[m __future__ [33;1mimport[m print_function; [33;1mimport[m better_exceptions; better_exceptions.hook(); a = [31m"why     hello          "[m + [31m"   there"[m; [35;1mprint[m(a); [33;1massert[m False
+[mwhy     hello             there
 
-Traceback (most recent call last):
-  File "<string>", line 1, in <module>
+[33m[1mTraceback (most recent call last):[m
+  File "[32m[m[32m[1m<string>[m", line [33m1[m, in [35m<module>[m
     [33;1mfrom[m __future__ [33;1mimport[m print_function; [33;1mimport[m better_exceptions; better_exceptions.hook(); a = [31m"why     hello          "[m + [31m"   there"[m; [35;1mprint[m(a); [33;1massert[m False
-    [36m                       |                      |                  |                 |       |                                                 -> 'why     hello             there'[m
-    [36m                       |                      |                  |                 |       -> 'why     hello             there'[m
-    [36m                       |                      |                  |                 -> <function hook at 0xDEADBEEF>[m
-    [36m                       |                      |                  -> <module 'test_module' from '/removed/for/test/purposes.py'>[m
-    [36m                       |                      -> <module 'test_module' from '/removed/for/test/purposes.py'>[m
-    [36m                       -> _Feature((2, 6, 0, 'alpha', 2), (3, 0, 0, 'alpha', 0), 65536)[m
-AssertionError: [33;1mfrom[m __future__ [33;1mimport[m print_function; [33;1mimport[m better_exceptions; better_exceptions.hook(); a = [31m"why     hello          "[m + [31m"   there"[m; [35;1mprint[m(a); [33;1massert[m False
-why     hello             there
+    [36m                       |                      |                  |                 |       |                                                 -> [m[36m[1m'why     hello             there'[m
+    [36m                       |                      |                  |                 |       -> [m[36m[1m'why     hello             there'[m
+    [36m                       |                      |                  |                 -> [m[36m[1m<function hook at 0xDEADBEEF>[m
+    [36m                       |                      |                  -> [m[36m[1m<module 'test_module' from '/removed/for/test/purposes.py'>[m
+    [36m                       |                      -> [m[36m[1m<module 'test_module' from '/removed/for/test/purposes.py'>[m
+    [36m                       -> [m[36m[1m_Feature((2, 6, 0, 'alpha', 2), (3, 0, 0, 'alpha', 0), 65536)[m
+[31m[1mAssertionError[m:[1m [33;1mfrom[m __future__ [33;1mimport[m print_function; [33;1mimport[m better_exceptions; better_exceptions.hook(); a = [31m"why     hello          "[m + [31m"   there"[m; [35;1mprint[m(a); [33;1massert[m False
+[mwhy     hello             there
 
 
 
@@ -148,189 +155,198 @@ python test/test_logging.py
 
 
 ERROR:__main__:callback failed
-Traceback (most recent call last):
-  File "test/test_logging.py", line 16, in foo
+[33m[1mTraceback (most recent call last):[m
+  File "[32mtest/[m[32m[1mtest_logging.py[m", line [33m16[m, in [35mfoo[m
     cb()
-    [36m-> <function bar3 at 0xDEADBEEF>[m
-  File "test/test_logging.py", line 33, in bar3
+    [36m-> [m[36m[1m<function bar3 at 0xDEADBEEF>[m
+  File "[32mtest/[m[32m[1mtest_logging.py[m", line [33m33[m, in [35mbar3[m
     [33;1mraise[m [35;1mException[m([31m'this is a test exception'[m)
-Exception: this is a test exception
-
+[31m[1mException[m:[1m this is a test exception
+[m
 ERROR:__main__:callback failed
-Traceback (most recent call last):
-  File "test/test_logging.py", line 16, in foo
+[33m[1mTraceback (most recent call last):[m
+  File "[32mtest/[m[32m[1mtest_logging.py[m", line [33m16[m, in [35mfoo[m
     cb()
-    [36m-> <function bar4 at 0xDEADBEEF>[m
-  File "test/test_logging.py", line 38, in bar4
+    [36m-> [m[36m[1m<function bar4 at 0xDEADBEEF>[m
+  File "[32mtest/[m[32m[1mtest_logging.py[m", line [33m38[m, in [35mbar4[m
     [33;1massert[m baz == [31m90[m
-    [36m       -> 52[m
-AssertionError: [33;1massert[m baz == [31m90[m
-
+    [36m       -> [m[36m[1m52[m
+[31m[1mAssertionError[m:[1m [33;1massert[m baz == [31m90[m
+[m
 
 
 
 python test/test_truncating.py
 
 
-Traceback (most recent call last):
-  File "test/test_truncating.py", line 12, in <module>
+[33m[1mTraceback (most recent call last):[m
+  File "[32mtest/[m[32m[1mtest_truncating.py[m", line [33m12[m, in [35m<module>[m
     div()
-    [36m-> <function ...[m
-  File "test/test_truncating.py", line 9, in div
+    [36m-> [m[36m[1m<function ...[m
+  File "[32mtest/[m[32m[1mtest_truncating.py[m", line [33m9[m, in [35mdiv[m
     [33;1mreturn[m [31m1[m / var
-    [36m           -> '999999999...[m
-TypeError: unsupported operand type(s) for /: 'int' and 'str'
+    [36m           -> [m[36m[1m'999999999...[m
+[31m[1mTypeError[m:[1m unsupported operand type(s) for /: 'int' and 'str'
+[m
 
 
 
 python test/test_truncating_disabled.py
 
 
-Traceback (most recent call last):
-  File "test/test_truncating_disabled.py", line 12, in <module>
+[33m[1mTraceback (most recent call last):[m
+  File "[32mtest/[m[32m[1mtest_truncating_disabled.py[m", line [33m12[m, in [35m<module>[m
     div()
-    [36m-> <function div at 0xDEADBEEF>[m
-  File "test/test_truncating_disabled.py", line 9, in div
+    [36m-> [m[36m[1m<function div at 0xDEADBEEF>[m
+  File "[32mtest/[m[32m[1mtest_truncating_disabled.py[m", line [33m9[m, in [35mdiv[m
     [33;1mreturn[m [31m1[m / var
-    [36m           -> '999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999'[m
-TypeError: unsupported operand type(s) for /: 'int' and 'str'
+    [36m           -> [m[36m[1m'999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999'[m
+[31m[1mTypeError[m:[1m unsupported operand type(s) for /: 'int' and 'str'
+[m
 
 
 
 python test/test_indentation_error.py
 
 
-Traceback (most recent call last):
-  File "test/test_indentation_error.py", line 13, in <module>
+[33m[1mTraceback (most recent call last):[m
+  File "[32mtest/[m[32m[1mtest_indentation_error.py[m", line [33m13[m, in [35m<module>[m
     [35;1mexec[m(code)
-    [36m     -> '\nif True:\n    a = 5\n        print("foobar")  #intentional faulty indentation here.\n    b = 7\n'[m
-File "<string>", line 4
-    print("foobar")  #intentional faulty indentation here.
+    [36m     -> [m[36m[1m'\nif True:\n    a = 5\n        print("foobar")  #intentional faulty indentation here.\n    b = 7\n'[m
+  File "[32m[m[32m[1m<string>[m", line [33m4[m
+    [35;1mprint[m([31m"foobar"[m)  [2;37m#intentional faulty indentation here.[m
     ^
-IndentationError: unexpected indent
+[31m[1mIndentationError[m:[1m unexpected indent
+[m
 
 
 
 python test/test_syntax_error.py
 
 
-Traceback (most recent call last):
-  File "test/test_syntax_error.py", line 12, in <module>
+[33m[1mTraceback (most recent call last):[m
+  File "[32mtest/[m[32m[1mtest_syntax_error.py[m", line [33m12[m, in [35m<module>[m
     [35;1mexec[m(code)
-    [36m     -> '\nif True:\n    a = 5\n    b = 7 *\n'[m
-File "<string>", line 4
-    b = 7 *
-          ^
-SyntaxError: invalid syntax
+    [36m     -> [m[36m[1m'\nif True:\n    a = 5\n    b = 7 *\n'[m
+  File "[32m[m[32m[1m<string>[m", line [33m4[m
+    b = [31m7[m *
+           ^
+[31m[1mSyntaxError[m:[1m invalid syntax
+[m
 
 
 
 python test/test_chaining.py
 
 
-Traceback (most recent call last):
-  File "test/test_chaining.py", line 11, in cause
+[33m[1mTraceback (most recent call last):[m
+  File "[32mtest/[m[32m[1mtest_chaining.py[m", line [33m11[m, in [35mcause[m
     div(x, y)
-    [36m|   |  -> 0[m
-    [36m|   -> 1[m
-    [36m-> <function div at 0xDEADBEEF>[m
-  File "test/test_chaining.py", line 7, in div
+    [36m|   |  -> [m[36m[1m0[m
+    [36m|   -> [m[36m[1m1[m
+    [36m-> [m[36m[1m<function div at 0xDEADBEEF>[m
+  File "[32mtest/[m[32m[1mtest_chaining.py[m", line [33m7[m, in [35mdiv[m
     x / y
-    [36m|   -> 0[m
-    [36m-> 1[m
-ZeroDivisionError: division by zero
+    [36m|   -> [m[36m[1m0[m
+    [36m-> [m[36m[1m1[m
+[31m[1mZeroDivisionError[m:[1m division by zero
+[m
+[1mDuring handling of the above exception, another exception occurred:[m
 
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "test/test_chaining.py", line 17, in context
+[33m[1mTraceback (most recent call last):[m
+  File "[32mtest/[m[32m[1mtest_chaining.py[m", line [33m17[m, in [35mcontext[m
     cause(x, y)
-    [36m|     |  -> 0[m
-    [36m|     -> 1[m
-    [36m-> <function cause at 0xDEADBEEF>[m
-  File "test/test_chaining.py", line 13, in cause
+    [36m|     |  -> [m[36m[1m0[m
+    [36m|     -> [m[36m[1m1[m
+    [36m-> [m[36m[1m<function cause at 0xDEADBEEF>[m
+  File "[32mtest/[m[32m[1mtest_chaining.py[m", line [33m13[m, in [35mcause[m
     [33;1mraise[m [35;1mValueError[m([31m"Division error"[m)
-ValueError: Division error
+[31m[1mValueError[m:[1m Division error
+[m
+[1mThe above exception was the direct cause of the following exception:[m
 
-The above exception was the direct cause of the following exception:
-
-Traceback (most recent call last):
-  File "test/test_chaining.py", line 21, in <module>
+[33m[1mTraceback (most recent call last):[m
+  File "[32mtest/[m[32m[1mtest_chaining.py[m", line [33m21[m, in [35m<module>[m
     context([31m1[m, [31m0[m)
-    [36m-> <function context at 0xDEADBEEF>[m
-  File "test/test_chaining.py", line 19, in context
+    [36m-> [m[36m[1m<function context at 0xDEADBEEF>[m
+  File "[32mtest/[m[32m[1mtest_chaining.py[m", line [33m19[m, in [35mcontext[m
     [33;1mraise[m [35;1mValueError[m([31m"Cause error"[m) [33;1mfrom[m e
-ValueError: Cause error
+[31m[1mValueError[m:[1m Cause error
+[m
 
 
 
 python test/test_multilines_repr.py
 
 
-Traceback (most recent call last):
-  File "test/test_multilines_repr.py", line 18, in <module>
+[33m[1mTraceback (most recent call last):[m
+  File "[32mtest/[m[32m[1mtest_multilines_repr.py[m", line [33m18[m, in [35m<module>[m
     multiline()
-    [36m-> <function multiline at 0xDEADBEEF>[m
-  File "test/test_multilines_repr.py", line 16, in multiline
+    [36m-> [m[36m[1m<function multiline at 0xDEADBEEF>[m
+  File "[32mtest/[m[32m[1mtest_multilines_repr.py[m", line [33m16[m, in [35mmultiline[m
     a + b
-    [36m|   -> [[1, 2, 3][m
-    [36m|       [4, 5, 6][m
-    [36m|       [7, 8, 9]][m
-    [36m-> [[1, 2, 3][m
-    [36m    [4, 5, 6][m
-    [36m    [7, 8, 9]][m
-TypeError: unsupported operand type(s) for +: 'A' and 'A'
+    [36m|   -> [m[36m[1m[[1, 2, 3][m
+    [36m|      [m[36m[1m [4, 5, 6][m
+    [36m|      [m[36m[1m [7, 8, 9]][m
+    [36m-> [m[36m[1m[[1, 2, 3][m
+    [36m   [m[36m[1m [4, 5, 6][m
+    [36m   [m[36m[1m [7, 8, 9]][m
+[31m[1mTypeError[m:[1m unsupported operand type(s) for +: 'A' and 'A'
+[m
 
 
 
 python test/test_source_multilines.py
 
 
-Traceback (most recent call last):
-  File "test/test_source_multilines.py", line 16, in <module>
+[33m[1mTraceback (most recent call last):[m
+  File "[32mtest/[m[32m[1mtest_source_multilines.py[m", line [33m16[m, in [35m<module>[m
     """)
-  File "test/test_source_multilines.py", line 13, in test
+  File "[32mtest/[m[32m[1mtest_source_multilines.py[m", line [33m13[m, in [35mtest[m
     , string, [31m3[m)
-    [36m  -> 'multi-lines\n'[m
-  File "test/test_source_multilines.py", line 8, in add
+    [36m  -> [m[36m[1m'multi-lines\n'[m
+  File "[32mtest/[m[32m[1mtest_source_multilines.py[m", line [33m8[m, in [35madd[m
     [33;1mreturn[m (a + b + \
-    [36m        |   -> 'multi-lines\n'[m
-    [36m        -> 1[m
-TypeError: unsupported operand type(s) for +: 'int' and 'str'
+    [36m        |   -> [m[36m[1m'multi-lines\n'[m
+    [36m        -> [m[36m[1m1[m
+[31m[1mTypeError[m:[1m unsupported operand type(s) for +: 'int' and 'str'
+[m
 
 
 
 python test/test_source_strings.py
 
 
-Traceback (most recent call last):
-  File "test/test_source_strings.py", line 8, in <module>
+[33m[1mTraceback (most recent call last):[m
+  File "[32mtest/[m[32m[1mtest_source_strings.py[m", line [33m8[m, in [35m<module>[m
     a + [31mb"prefix"[m + [31m"multi\nlines"[m + [31m'single'[m + [31m"""triple"""[m + [31m1[m + b
-    [36m|                                                              -> 0[m
-    [36m-> 0[m
-TypeError: unsupported operand type(s) for +: 'int' and 'bytes'
+    [36m|                                                              -> [m[36m[1m0[m
+    [36m-> [m[36m[1m0[m
+[31m[1mTypeError[m:[1m unsupported operand type(s) for +: 'int' and 'bytes'
+[m
 
 
 
 python test/test_attributes.py
 
 
-Traceback (most recent call last):
-  File "test/test_attributes.py", line 17, in <module>
+[33m[1mTraceback (most recent call last):[m
+  File "[32mtest/[m[32m[1mtest_attributes.py[m", line [33m17[m, in [35m<module>[m
     foo()
-    [36m-> <function foo at 0xDEADBEEF>[m
-  File "test/test_attributes.py", line 15, in foo
+    [36m-> [m[36m[1m<function foo at 0xDEADBEEF>[m
+  File "[32mtest/[m[32m[1mtest_attributes.py[m", line [33m15[m, in [35mfoo[m
     ... + [31m1[m + bar(a).b + a.forbidden + a.nope.a + x.__bool__ [33;1mor[m a. b . isdigit() [33;1mand[m [31m.3[m + ...
-    [36m              |      | |           |          | |           |  |   -> <method 'isdigit' of 'str' objects>[m
-    [36m              |      | |           |          | |           |  -> '123'[m
-    [36m              |      | |           |          | |           -> <__main__.Obj object at 0xDEADBEEF>[m
-    [36m              |      | |           |          | -> <slot wrapper '__bool__' of 'NoneType' objects>[m
-    [36m              |      | |           |          -> None[m
-    [36m              |      | |           -> <__main__.Obj object at 0xDEADBEEF>[m
-    [36m              |      | -> <property object at 0xDEADBEEF>[m
-    [36m              |      -> <__main__.Obj object at 0xDEADBEEF>[m
-    [36m              -> <__main__.Obj object at 0xDEADBEEF>[m
-TypeError: unsupported operand type(s) for +: 'ellipsis' and 'int'
+    [36m              |      | |           |          | |           |  |   -> [m[36m[1m<method 'isdigit' of 'str' objects>[m
+    [36m              |      | |           |          | |           |  -> [m[36m[1m'123'[m
+    [36m              |      | |           |          | |           -> [m[36m[1m<__main__.Obj object at 0xDEADBEEF>[m
+    [36m              |      | |           |          | -> [m[36m[1m<slot wrapper '__bool__' of 'NoneType' objects>[m
+    [36m              |      | |           |          -> [m[36m[1mNone[m
+    [36m              |      | |           -> [m[36m[1m<__main__.Obj object at 0xDEADBEEF>[m
+    [36m              |      | -> [m[36m[1m<property object at 0xDEADBEEF>[m
+    [36m              |      -> [m[36m[1m<__main__.Obj object at 0xDEADBEEF>[m
+    [36m              -> [m[36m[1m<__main__.Obj object at 0xDEADBEEF>[m
+[31m[1mTypeError[m:[1m unsupported operand type(s) for +: 'ellipsis' and 'int'
+[m
 
 
 

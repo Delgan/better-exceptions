@@ -15,7 +15,17 @@ from .repl import get_repl
 
 
 THEME = {
-    'inspect': '\x1b[36m{}\x1b[m',
+    'introduction': '\x1b[33m\x1b[1m{}\x1b[m',
+    'cause': '\x1b[1m{}\x1b[m',
+    'context': '\x1b[1m{}\x1b[m',
+    'dirname': '\x1b[32m{}\x1b[m',
+    'basename': '\x1b[32m\x1b[1m{}\x1b[m',
+    'lineno': '\x1b[33m{}\x1b[m',
+    'function': '\x1b[35m{}\x1b[m',
+    'exception_type': '\x1b[31m\x1b[1m{}\x1b[m',
+    'exception_value': '\x1b[1m{}\x1b[m',
+    'arrows': '\x1b[36m{}\x1b[m',
+    'value': '\x1b[36m\x1b[1m{}\x1b[m',
 }
 
 MAX_LENGTH = 128
@@ -42,6 +52,17 @@ class ExceptionFormatter(object):
             return default
         else:
             return char
+
+    def _colorize_filepath(self, filepath):
+        dirname, basename = os.path.split(filepath)
+
+        if dirname:
+            dirname += os.sep
+
+        dirname = self._theme["dirname"].format(dirname)
+        basename = self._theme["basename"].format(basename)
+
+        return dirname + basename
 
     def format_value(self, v):
         try:
@@ -166,18 +187,20 @@ class ExceptionFormatter(object):
 
         relevant_values = self.get_relevant_values(source, tb.tb_frame)
 
-        if self._colored:
-            color_source = self._highlighter.highlight(source)
-        else:
-            color_source = source
-
-        return filename, lineno, function, source, color_source, relevant_values
+        return filename, lineno, function, source, relevant_values
 
 
     def format_traceback_frame(self, tb):
-        filename, lineno, function, source, color_source, relevant_values = self.get_traceback_information(tb)
+        filename, lineno, function, source, relevant_values = self.get_traceback_information(tb)
 
-        lines = [color_source]
+        if self._colored:
+            lineno = self._theme["lineno"].format(lineno)
+            filename = self._colorize_filepath(filename)
+            source = self._highlighter.highlight(source)
+            if function:
+                function = self._theme["function"].format(function)
+
+        lines = [source]
         for i in reversed(range(len(relevant_values))):
             col, val = relevant_values[i]
             pipe_cols = [pcol for pcol, _ in relevant_values[:i]]
@@ -193,15 +216,20 @@ class ExceptionFormatter(object):
 
             for n, val_line in enumerate(val_lines):
                 if n == 0:
-                    line = pre_line + self._cap_char + ' ' + val_line
+                    line = pre_line + self._cap_char + ' '
                 else:
-                    line = pre_line + ' ' * (len(self._cap_char) + 1) + val_line
+                    line = pre_line + ' ' * (len(self._cap_char) + 1)
 
-                lines.append(self._theme['inspect'].format(line) if self._colored else line)
+                if self._colored:
+                    line = self._theme["arrows"].format(line) + self._theme["value"].format(val_line)
+                else:
+                    line = line + val_line
+
+                lines.append(line)
 
         formatted = '\n    '.join(lines)
 
-        return (filename, lineno, function, formatted), color_source
+        return (filename, lineno, function, formatted), source
 
 
     def format_traceback(self, tb=None):
@@ -215,16 +243,16 @@ class ExceptionFormatter(object):
                 assert tb is not None
 
         frames = []
-        final_source = ''
+        final_source = ""
         while tb:
             if omit_last and not tb.tb_next:
                 break
 
-            formatted, colored = self.format_traceback_frame(tb)
+            formatted, source = self.format_traceback_frame(tb)
 
             # special case to ignore runcode() here.
             if not (os.path.basename(formatted[0]) == 'code.py' and formatted[2] == 'runcode'):
-                final_source = colored
+                final_source = source
                 frames.append(formatted)
 
             tb = tb.tb_next
@@ -248,24 +276,47 @@ class ExceptionFormatter(object):
             if exc_value.__cause__ is not None and id(exc_value.__cause__) not in seen:
                 for text in self._format_exception(exc_value.__cause__,exc_value.__cause__.__traceback__, seen=seen):
                     yield text
-                yield "\nThe above exception was the direct cause of the following exception:\n\n"
+                cause = "The above exception was the direct cause of the following exception:"
+                if self._colored:
+                    cause = self._theme["cause"].format(cause)
+                yield "\n" + cause + "\n\n"
             elif exc_value.__context__ is not None and id(exc_value.__context__) not in seen and not exc_value.__suppress_context__:
                 for text in self._format_exception(exc_value.__context__, exc_value.__context__.__traceback__, seen=seen):
                     yield text
-                yield "\nDuring handling of the above exception, another exception occurred:\n\n"
+                context = "During handling of the above exception, another exception occurred:"
+                if self._colored:
+                    context = self._theme["context"].format(context)
+                yield "\n" + context + "\n\n"
 
         if exc_traceback is not None:
-            yield 'Traceback (most recent call last):\n'
+            introduction = "Traceback (most recent call last):"
+            if self._colored:
+                introduction = self._theme["introduction"].format(introduction)
+            yield introduction + "\n"
 
-        formatted, colored_source = self.format_traceback(exc_traceback)
+        formatted, final_source = self.format_traceback(exc_traceback)
 
         yield formatted
 
-        if not str(value) and exc_type is AssertionError:
-            value.args = (colored_source,)
-        title = traceback.format_exception_only(exc_type, value)
+        if not str(exc_value) and issubclass(exc_type, AssertionError):
+            exc_value.args = (final_source,)
 
-        yield ''.join(title).strip() + '\n'
+        exc = traceback.TracebackException(exc_type, exc_value, None)
+
+        if self._colored and issubclass(exc_type, SyntaxError):
+            exc.filename = self._colorize_filepath(exc.filename or "<string>")
+            exc.lineno = self._theme["lineno"].format(exc.lineno or "?", "lineno")
+            exc.text = self._highlighter.highlight(exc.text)
+
+        title = list(exc.format_exception_only())
+
+        if self._colored and title and ':' in title[-1]:
+            exception_type, exception_value = title[-1].split(':', 1)
+            exception_type = self._theme["exception_type"].format(exception_type)
+            exception_value = self._theme["exception_value"].format(exception_value)
+            title[-1] = exception_type + ":" + exception_value
+
+        yield "".join(title)
 
     def format_exception(self, exc, value, tb):
         for line in self._format_exception(value, tb):

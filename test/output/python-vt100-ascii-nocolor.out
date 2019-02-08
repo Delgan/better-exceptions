@@ -52,15 +52,20 @@ spawn python -m better_exceptions -q
 ...     assert a > 10
 ... 
 >>> foo(1)
-Traceback (most recent call last):
-  File "<console>", line 1, in <module>
+[33m[1mTraceback (most recent call last):[m
+  File "[32m/usr/lib/python3.5/[m[32m[1mcode.py[m", line [33m91[m, in [35mruncode[m
+    [35;1mexec[m(code, self.[35;1mlocals[m)
+    [36m     |     |    -> [m[36m[1m{'__name__': '__console__', 'better_exceptions': <module 'better_exceptions' from '/mnt/c/Users/adrie/Desktop/Programmation/bett...[m
+    [36m     |     -> [m[36m[1m<better_exceptions.repl.BetterExceptionsConsole object at 0xDEADBEEF>[m
+    [36m     -> [m[36m[1m<code object <module> at 0xDEADBEEF, file "@@@REPL@@@4", line 1>[m
+  File "[32m[m[32m[1m<console>[m", line [33m1[m, in [35m<module>[m
     foo([31m1[m)
-    [36m-> <function foo at 0xDEADBEEF>[m
-  File "<console>", line 2, in foo
+    [36m-> [m[36m[1m<function foo at 0xDEADBEEF>[m
+  File "[32m[m[32m[1m<console>[m", line [33m2[m, in [35mfoo[m
     [33;1massert[m a > [31m10[m
-    [36m       -> 1[m
-AssertionError: [33;1massert[m a > [31m10[m
->>> exit()
+    [36m       -> [m[36m[1m1[m
+[31m[1mAssertionError[m:[1m [33;1massert[m a > [31m10[m
+[m>>> exit()
 
 
 
@@ -204,7 +209,7 @@ Traceback (most recent call last):
   File "test/test_indentation_error.py", line 13, in <module>
     exec(code)
          -> '\nif True:\n    a = 5\n        print("foobar")  #intentional faulty indentation here.\n    b = 7\n'
-File "<string>", line 4
+  File "<string>", line 4
     print("foobar")  #intentional faulty indentation here.
     ^
 IndentationError: unexpected indent
@@ -218,7 +223,7 @@ Traceback (most recent call last):
   File "test/test_syntax_error.py", line 12, in <module>
     exec(code)
          -> '\nif True:\n    a = 5\n    b = 7 *\n'
-File "<string>", line 4
+  File "<string>", line 4
     b = 7 *
           ^
 SyntaxError: invalid syntax
